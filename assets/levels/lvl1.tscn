@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://cj1m7pr8nc0tf"]
+
+[ext_resource type="PackedScene" uid="uid://c5o5wl6urgmbp" path="res://assets/objects/player.tscn" id="1_qsemo"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6dymt"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_lmnsa"]
+sky_material = SubResource("ProceduralSkyMaterial_6dymt")
+
+[sub_resource type="Environment" id="Environment_o4x5r"]
+background_mode = 2
+sky = SubResource("Sky_lmnsa")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="World" type="Node3D"]
+
+[node name="ENVIRONMENT" type="Node" parent="."]
+
+[node name="Ilumination" type="Node" parent="ENVIRONMENT"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="ENVIRONMENT/Ilumination"]
+environment = SubResource("Environment_o4x5r")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="ENVIRONMENT/Ilumination"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Map" type="Node" parent="ENVIRONMENT"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="ENVIRONMENT/Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="ENVIRONMENT/Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, -9.5)
+use_collision = true
+size = Vector3(18, 7, 1)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="ENVIRONMENT/Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 9.5)
+use_collision = true
+size = Vector3(18, 7, 1)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="ENVIRONMENT/Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 3.5, 0)
+use_collision = true
+size = Vector3(1, 7, 20)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="ENVIRONMENT/Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 3.5, 0)
+use_collision = true
+size = Vector3(1, 7, 20)
+
+[node name="Player" parent="." instance=ExtResource("1_qsemo")]
