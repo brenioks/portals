@@ -5,8 +5,7 @@ const SPEED 		= 5.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY	= .01
 
-@onready var neck	= $Neck
-@onready var camera = $Neck/Camera
+@onready var camera = $Camera
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -17,7 +16,7 @@ func _ready():
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		neck.rotate_y(	-event.relative.x * SENSITIVITY)
+		rotate_y(	-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -95, 95)
 	
@@ -36,7 +35,7 @@ func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
-	var direction = (neck.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
