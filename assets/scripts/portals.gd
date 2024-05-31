@@ -1,3 +1,4 @@
+@tool
 extends Node
 
 @onready var PortalA = %PortalA
@@ -10,3 +11,12 @@ func _ready():
 	
 	PortalA.get_node("Mesh").get_active_material(0).albedo_texture.viewport_path = PortalAViewport
 	PortalB.get_node("Mesh").get_active_material(0).albedo_texture.viewport_path = PortalBViewport
+
+func _physics_process(_delta):
+	var PortalAMesh = PortalA.get_node("Mesh")
+	var PortalBMesh = PortalB.get_node("Mesh")
+	var PortalACamera = PortalA.get_node("SubViewport/Camera")
+	var PortalBCamera = PortalB.get_node("SubViewport/Camera")
+	
+	PortalACamera.global_position = PortalBMesh.global_position
+	PortalBCamera.global_position = PortalAMesh.global_position
