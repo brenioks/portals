@@ -15,13 +15,13 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion && Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		rotate_y(	-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -95, 95)
 	
 	if event.is_action_pressed("escape"):
-		get_tree().quit()
+		Input.set_mouse_mode(int(!Input.get_mouse_mode()) * 2)
 
 func _physics_process(delta):
 	# Add the gravity.

@@ -1,7 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://cj1m7pr8nc0tf"]
+[gd_scene load_steps=24 format=3 uid="uid://cj1m7pr8nc0tf"]
 
+[ext_resource type="Script" path="res://assets/scripts/portals.gd" id="1_0t7j2"]
 [ext_resource type="PackedScene" uid="uid://c5o5wl6urgmbp" path="res://assets/objects/player.tscn" id="1_qsemo"]
 [ext_resource type="PackedScene" uid="uid://27gow0tlrm2d" path="res://assets/objects/portal.tscn" id="2_c53dn"]
+[ext_resource type="Texture2D" uid="uid://bsbtp8f83oxql" path="res://assets/textures/portal.png" id="3_ndqlb"]
+[ext_resource type="Texture2D" uid="uid://csn04y8wn8xpo" path="res://assets/textures/portalempty1.png" id="4_7oj3x"]
+[ext_resource type="Texture2D" uid="uid://dlgtkvul2t0s8" path="res://assets/textures/portalempty2.png" id="5_vr508"]
+[ext_resource type="Texture2D" uid="uid://obbly488n13a" path="res://assets/textures/portalempty3.png" id="6_ekoml"]
+[ext_resource type="Texture2D" uid="uid://401gb8e1s1sx" path="res://assets/textures/portalempty4.png" id="7_n303g"]
+[ext_resource type="Script" path="res://assets/levels/GUI.gd" id="8_6qncl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_itapp"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -15,6 +22,82 @@ background_mode = 2
 sky = SubResource("Sky_47dox")
 glow_enabled = true
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_f2nbl"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_30bv6"]
+frames = 4
+speed_scale = 2.0
+frame_0/texture = ExtResource("4_7oj3x")
+frame_0/duration = 0.4
+frame_1/texture = ExtResource("5_vr508")
+frame_1/duration = 0.4
+frame_2/texture = ExtResource("6_ekoml")
+frame_2/duration = 0.4
+frame_3/texture = ExtResource("7_n303g")
+frame_3/duration = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8260e"]
+albedo_texture = SubResource("AnimatedTexture_30bv6")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ld8k"]
+render_priority = 2
+next_pass = SubResource("StandardMaterial3D_8260e")
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("3_ndqlb")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xl2e4"]
+resource_local_to_scene = true
+render_priority = 1
+next_pass = SubResource("StandardMaterial3D_1ld8k")
+shading_mode = 0
+specular_mode = 2
+albedo_texture = SubResource("ViewportTexture_f2nbl")
+texture_filter = 0
+texture_repeat = false
+disable_receive_shadows = true
+point_size = 13.9
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_5uml2"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_weyux"]
+resource_local_to_scene = true
+render_priority = 1
+next_pass = SubResource("StandardMaterial3D_1ld8k")
+shading_mode = 0
+specular_mode = 2
+albedo_texture = SubResource("ViewportTexture_5uml2")
+texture_filter = 0
+texture_repeat = false
+disable_receive_shadows = true
+point_size = 13.9
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_seqlk"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.258824, 0.258824, 0.258824, 0.909804)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.650128, 0.650128, 0.650128, 1)
+
+[sub_resource type="Theme" id="Theme_v0sij"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_hu7yp"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ghrfi"]
+viewport_path = NodePath("SubViewport")
+
 [node name="World" type="Node3D"]
 
 [node name="ENVIRONMENT" type="Node" parent="."]
@@ -22,7 +105,7 @@ glow_enabled = true
 [node name="Ilumination" type="Node" parent="ENVIRONMENT"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="ENVIRONMENT/Ilumination"]
-transform = Transform3D(0.965926, 0.12941, 0.224144, -0.258819, 0.482963, 0.836516, 0, -0.866025, 0.5, 0, 0, 0)
+transform = Transform3D(0.707107, -0.664463, 0.241845, 0, 0.34202, 0.939693, -0.707107, -0.664463, 0.241845, 0, 0, 0)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="ENVIRONMENT/Ilumination"]
@@ -60,13 +143,127 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
 use_collision = true
 size = Vector3(1, 7, 9)
 
+[node name="PORTALS" type="Node" parent="."]
+script = ExtResource("1_0t7j2")
+
+[node name="PortalA" parent="PORTALS" instance=ExtResource("2_c53dn")]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.5, 0, -1.31134e-07)
+
+[node name="Mesh" parent="PORTALS/PortalA" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_xl2e4")
+
+[node name="PortalB" parent="PORTALS" instance=ExtResource("2_c53dn")]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.5, 0, 1.31134e-07)
+
+[node name="Mesh" parent="PORTALS/PortalB" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_weyux")
+
 [node name="Player" parent="." instance=ExtResource("1_qsemo")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.29814, 0, -3.41256)
 
-[node name="Portal_A" parent="." instance=ExtResource("2_c53dn")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.5, 0, -1.31134e-07)
+[node name="GUI" type="CanvasLayer" parent="."]
+script = ExtResource("8_6qncl")
 
-[node name="Portal_B" parent="." instance=ExtResource("2_c53dn")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.5, 0, 1.31134e-07)
+[node name="DebugScreen" type="Control" parent="GUI"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
+[node name="ColorRect" type="ColorRect" parent="GUI/DebugScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.333333)
+
+[node name="CenterContainer" type="CenterContainer" parent="GUI/DebugScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Container" type="PanelContainer" parent="GUI/DebugScreen/CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_seqlk")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/DebugScreen/CenterContainer/Container"]
+layout_mode = 2
+theme = SubResource("Theme_v0sij")
+theme_override_constants/separation = 5
+
+[node name="ResumeButton" type="Button" parent="GUI/DebugScreen/CenterContainer/Container/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+text = "Resume"
+
+[node name="QuitButton" type="Button" parent="GUI/DebugScreen/CenterContainer/Container/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+text = "Quit"
+
+[node name="Label" type="Label" parent="GUI/DebugScreen/CenterContainer/Container/VBoxContainer"]
+layout_mode = 2
+text = "
+Debug"
+
+[node name="PAOnScreenCheck" type="CheckButton" parent="GUI/DebugScreen/CenterContainer/Container/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Enable P. A view"
+
+[node name="PBOnScreenCheck" type="CheckButton" parent="GUI/DebugScreen/CenterContainer/Container/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Enable P. B view"
+
+[node name="PortalsView" type="HBoxContainer" parent="GUI"]
+offset_right = 204.0
+offset_bottom = 200.0
+
+[node name="PortalA" type="TextureRect" parent="GUI/PortalsView"]
+visible = false
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+texture = SubResource("ViewportTexture_hu7yp")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="GUI/PortalsView/PortalA"]
+layout_mode = 1
+offset_right = 62.0
+offset_bottom = 23.0
+text = "P. A
+"
+
+[node name="PortalB" type="TextureRect" parent="GUI/PortalsView"]
+visible = false
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+texture = SubResource("ViewportTexture_ghrfi")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="GUI/PortalsView/PortalB"]
+offset_right = 62.0
+offset_bottom = 23.0
+text = "P. B
+"
+
+[connection signal="pressed" from="GUI/DebugScreen/CenterContainer/Container/VBoxContainer/ResumeButton" to="GUI" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="GUI/DebugScreen/CenterContainer/Container/VBoxContainer/QuitButton" to="GUI" method="_on_quit_button_pressed"]
+[connection signal="toggled" from="GUI/DebugScreen/CenterContainer/Container/VBoxContainer/PAOnScreenCheck" to="GUI" method="_on_pa_on_screen_check_toggled"]
+[connection signal="toggled" from="GUI/DebugScreen/CenterContainer/Container/VBoxContainer/PBOnScreenCheck" to="GUI" method="_on_pb_on_screen_check_toggled"]
+
+[editable path="PORTALS/PortalA"]
+[editable path="PORTALS/PortalB"]
 [editable path="Player"]
