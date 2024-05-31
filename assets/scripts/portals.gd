@@ -3,6 +3,7 @@ extends Node
 
 @onready var PortalA = %PortalA
 @onready var PortalB = %PortalB
+@onready var Player = %Player
 
 func _ready():
 	# Auto connect texture and viewport
@@ -18,5 +19,8 @@ func _physics_process(_delta):
 	var PortalACamera = PortalA.get_node("SubViewport/Camera")
 	var PortalBCamera = PortalB.get_node("SubViewport/Camera")
 	
+	#if !Engine.is_editor_hint():
 	PortalACamera.global_position = PortalBMesh.global_position
 	PortalBCamera.global_position = PortalAMesh.global_position
+	PortalACamera.rotation = PortalB.rotation + Vector3(0, deg_to_rad(180), 0)#deg_to_rad(PortalACamera.position.angle_to(Player.position))
+	PortalBCamera.rotation = PortalA.rotation + Vector3(0, deg_to_rad(180), 0)#deg_to_rad(PortalACamera.position.angle_to(Player.position))
