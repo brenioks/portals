@@ -20,7 +20,17 @@ sky_material = SubResource("ProceduralSkyMaterial_itapp")
 [sub_resource type="Environment" id="Environment_mfp7y"]
 background_mode = 2
 sky = SubResource("Sky_47dox")
+ssao_enabled = true
+ssao_intensity = 2.36
+ssao_detail = 0.0
+ssao_sharpness = 0.0
+ssao_light_affect = 1.0
+ssao_ao_channel_affect = 1.0
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+sdfgi_read_sky_light = false
 glow_enabled = true
+volumetric_fog_enabled = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_f2nbl"]
 viewport_path = NodePath("/root/@EditorNode@17122/@Panel@13/@VBoxContainer@14/@HSplitContainer@17/@HSplitContainer@25/@HSplitContainer@33/@VBoxContainer@34/@VSplitContainer@36/@VSplitContainer@61/@VBoxContainer@62/@PanelContainer@109/MainScreen/@CanvasItemEditor@9461/@VSplitContainer@9280/@HSplitContainer@9282/@HSplitContainer@9284/@Control@9285/@SubViewportContainer@9286/@SubViewport@9287/World/PORTALS/PortalA/SubViewport")
@@ -161,6 +171,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 2, -1.31134e-07)
 
 [node name="Player" parent="." instance=ExtResource("1_qsemo")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.29814, 3.81179e-05, -3.41256)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Player"]
+transform = Transform3D(0.645218, 0, 0.763999, 0, 1, 0, -0.763999, 0, 0.645218, 0, 1, 0)
+light_energy = 0.1
+shadow_enabled = true
+omni_range = 4.57886
 
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource("8_6qncl")
