@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cj1m7pr8nc0tf"]
+[gd_scene load_steps=25 format=3 uid="uid://cj1m7pr8nc0tf"]
 
 [ext_resource type="Script" path="res://assets/scripts/portals.gd" id="1_0t7j2"]
 [ext_resource type="PackedScene" uid="uid://c5o5wl6urgmbp" path="res://assets/objects/player.tscn" id="1_qsemo"]
@@ -31,6 +31,8 @@ sdfgi_use_occlusion = true
 sdfgi_read_sky_light = false
 glow_enabled = true
 volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
+adjustment_enabled = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_f2nbl"]
 viewport_path = NodePath("/root/@EditorNode@17122/@Panel@13/@VBoxContainer@14/@HSplitContainer@17/@HSplitContainer@25/@HSplitContainer@33/@VBoxContainer@34/@VSplitContainer@36/@VSplitContainer@61/@VBoxContainer@62/@PanelContainer@109/MainScreen/@CanvasItemEditor@9461/@VSplitContainer@9280/@HSplitContainer@9282/@HSplitContainer@9284/@Control@9285/@SubViewportContainer@9286/@SubViewport@9287/World/PORTALS/PortalA/SubViewport")
@@ -50,21 +52,21 @@ frame_3/duration = 0.4
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8260e"]
 albedo_texture = SubResource("AnimatedTexture_30bv6")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ld8k"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkue5"]
 render_priority = 2
 next_pass = SubResource("StandardMaterial3D_8260e")
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
+albedo_color = Color(1, 0, 0, 1)
 albedo_texture = ExtResource("3_ndqlb")
 emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.5
+emission = Color(1, 0.670588, 0, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xl2e4"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iqsbq"]
 resource_local_to_scene = true
 render_priority = 1
-next_pass = SubResource("StandardMaterial3D_1ld8k")
+next_pass = SubResource("StandardMaterial3D_lkue5")
 shading_mode = 0
 specular_mode = 2
 albedo_texture = SubResource("ViewportTexture_f2nbl")
@@ -76,10 +78,21 @@ point_size = 13.9
 [sub_resource type="ViewportTexture" id="ViewportTexture_5uml2"]
 viewport_path = NodePath("/root/@EditorNode@17122/@Panel@13/@VBoxContainer@14/@HSplitContainer@17/@HSplitContainer@25/@HSplitContainer@33/@VBoxContainer@34/@VSplitContainer@36/@VSplitContainer@61/@VBoxContainer@62/@PanelContainer@109/MainScreen/@CanvasItemEditor@9461/@VSplitContainer@9280/@HSplitContainer@9282/@HSplitContainer@9284/@Control@9285/@SubViewportContainer@9286/@SubViewport@9287/World/PORTALS/PortalB/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_weyux"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6gyxo"]
+render_priority = 2
+next_pass = SubResource("StandardMaterial3D_8260e")
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_color = Color(0, 0, 1, 1)
+albedo_texture = ExtResource("3_ndqlb")
+emission_enabled = true
+emission = Color(0, 0.792157, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pkfff"]
 resource_local_to_scene = true
 render_priority = 1
-next_pass = SubResource("StandardMaterial3D_1ld8k")
+next_pass = SubResource("StandardMaterial3D_6gyxo")
 shading_mode = 0
 specular_mode = 2
 albedo_texture = SubResource("ViewportTexture_5uml2")
@@ -153,7 +166,7 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.5, 
 
 [node name="Mesh" parent="PORTALS/PortalA" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 2, 1.74846e-08)
-surface_material_override/0 = SubResource("StandardMaterial3D_xl2e4")
+surface_material_override/0 = SubResource("StandardMaterial3D_iqsbq")
 
 [node name="Camera" parent="PORTALS/PortalA/SubViewport" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 2, 1.31134e-07)
@@ -164,7 +177,7 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.5, 0
 
 [node name="Mesh" parent="PORTALS/PortalB" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 2, -1.74846e-08)
-surface_material_override/0 = SubResource("StandardMaterial3D_weyux")
+surface_material_override/0 = SubResource("StandardMaterial3D_pkfff")
 
 [node name="Camera" parent="PORTALS/PortalB/SubViewport" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 2, -1.31134e-07)
