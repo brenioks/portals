@@ -1,13 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://cj1m7pr8nc0tf"]
+[gd_scene load_steps=12 format=3 uid="uid://cj1m7pr8nc0tf"]
 
 [ext_resource type="Script" path="res://assets/scripts/portals.gd" id="1_0t7j2"]
 [ext_resource type="PackedScene" uid="uid://c5o5wl6urgmbp" path="res://assets/objects/player.tscn" id="1_qsemo"]
 [ext_resource type="PackedScene" uid="uid://27gow0tlrm2d" path="res://assets/objects/portal.tscn" id="2_c53dn"]
-[ext_resource type="Texture2D" uid="uid://bsbtp8f83oxql" path="res://assets/textures/portal.png" id="3_ndqlb"]
-[ext_resource type="Texture2D" uid="uid://csn04y8wn8xpo" path="res://assets/textures/portalempty1.png" id="4_7oj3x"]
-[ext_resource type="Texture2D" uid="uid://dlgtkvul2t0s8" path="res://assets/textures/portalempty2.png" id="5_vr508"]
-[ext_resource type="Texture2D" uid="uid://obbly488n13a" path="res://assets/textures/portalempty3.png" id="6_ekoml"]
-[ext_resource type="Texture2D" uid="uid://401gb8e1s1sx" path="res://assets/textures/portalempty4.png" id="7_n303g"]
 [ext_resource type="Script" path="res://assets/levels/GUI.gd" id="8_6qncl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_itapp"]
@@ -34,73 +29,6 @@ volumetric_fog_enabled = true
 volumetric_fog_density = 0.01
 adjustment_enabled = true
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_f2nbl"]
-viewport_path = NodePath("SubViewport")
-
-[sub_resource type="AnimatedTexture" id="AnimatedTexture_30bv6"]
-frames = 4
-speed_scale = 2.0
-frame_0/texture = ExtResource("4_7oj3x")
-frame_0/duration = 0.4
-frame_1/texture = ExtResource("5_vr508")
-frame_1/duration = 0.4
-frame_2/texture = ExtResource("6_ekoml")
-frame_2/duration = 0.4
-frame_3/texture = ExtResource("7_n303g")
-frame_3/duration = 0.4
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8260e"]
-albedo_texture = SubResource("AnimatedTexture_30bv6")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkue5"]
-render_priority = 2
-next_pass = SubResource("StandardMaterial3D_8260e")
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-albedo_color = Color(1, 0, 0, 1)
-albedo_texture = ExtResource("3_ndqlb")
-emission_enabled = true
-emission = Color(1, 0.670588, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iqsbq"]
-resource_local_to_scene = true
-render_priority = 1
-next_pass = SubResource("StandardMaterial3D_lkue5")
-shading_mode = 0
-specular_mode = 2
-albedo_texture = SubResource("ViewportTexture_f2nbl")
-texture_filter = 0
-texture_repeat = false
-disable_receive_shadows = true
-point_size = 13.9
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_5uml2"]
-viewport_path = NodePath("SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6gyxo"]
-render_priority = 2
-next_pass = SubResource("StandardMaterial3D_8260e")
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-albedo_color = Color(0, 0, 1, 1)
-albedo_texture = ExtResource("3_ndqlb")
-emission_enabled = true
-emission = Color(0, 0.792157, 1, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pkfff"]
-resource_local_to_scene = true
-render_priority = 1
-next_pass = SubResource("StandardMaterial3D_6gyxo")
-shading_mode = 0
-specular_mode = 2
-albedo_texture = SubResource("ViewportTexture_5uml2")
-texture_filter = 0
-texture_repeat = false
-disable_receive_shadows = true
-point_size = 13.9
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_seqlk"]
 content_margin_left = 5.0
 content_margin_top = 5.0
@@ -120,9 +48,6 @@ viewport_path = NodePath("SubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ghrfi"]
 viewport_path = NodePath("SubViewport")
-
-[sub_resource type="PrismMesh" id="PrismMesh_qutub"]
-lightmap_size_hint = Vector2i(14, 21)
 
 [node name="World" type="Node3D"]
 
@@ -165,25 +90,11 @@ script = ExtResource("1_0t7j2")
 
 [node name="PortalA" parent="PORTALS" instance=ExtResource("2_c53dn")]
 unique_name_in_owner = true
-transform = Transform3D(8.9407e-08, 0, 1, 0, 1, 0, -1, 0, 8.9407e-08, -9.98078, 0, -1.31134e-07)
-
-[node name="Mesh" parent="PORTALS/PortalA" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 2, 1.74846e-08)
-surface_material_override/0 = SubResource("StandardMaterial3D_iqsbq")
-
-[node name="Camera" parent="PORTALS/PortalA/SubViewport" index="0"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.98172, 1.5, 0.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, -9.99)
 
 [node name="PortalB" parent="PORTALS" instance=ExtResource("2_c53dn")]
 unique_name_in_owner = true
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.98172, 0, 1.31134e-07)
-
-[node name="Mesh" parent="PORTALS/PortalB" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 2, -1.74846e-08)
-surface_material_override/0 = SubResource("StandardMaterial3D_pkfff")
-
-[node name="Camera" parent="PORTALS/PortalB/SubViewport" index="0"]
-transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -9.98078, 1.5, 0.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, -9.99)
 
 [node name="Player" parent="." instance=ExtResource("1_qsemo")]
 unique_name_in_owner = true
@@ -292,16 +203,9 @@ offset_bottom = 23.0
 text = "P. B
 "
 
-[node name="ARrai" type="MeshInstance3D" parent="."]
-unique_name_in_owner = true
-transform = Transform3D(1.91069e-15, 2.1785, 4.37114e-08, 4.37114e-08, -9.52251e-08, 1, 1, 0, -4.37114e-08, 0, 1, 0)
-mesh = SubResource("PrismMesh_qutub")
-
 [connection signal="pressed" from="GUI/DebugScreen/CenterContainer/Container/VBoxContainer/ResumeButton" to="GUI" method="_on_resume_button_pressed"]
 [connection signal="pressed" from="GUI/DebugScreen/CenterContainer/Container/VBoxContainer/QuitButton" to="GUI" method="_on_quit_button_pressed"]
 [connection signal="toggled" from="GUI/DebugScreen/CenterContainer/Container/VBoxContainer/PAOnScreenCheck" to="GUI" method="_on_pa_on_screen_check_toggled"]
 [connection signal="toggled" from="GUI/DebugScreen/CenterContainer/Container/VBoxContainer/PBOnScreenCheck" to="GUI" method="_on_pb_on_screen_check_toggled"]
 
-[editable path="PORTALS/PortalA"]
-[editable path="PORTALS/PortalB"]
 [editable path="Player"]

@@ -12,6 +12,9 @@ func _ready():
 	
 	PortalA.get_node("Mesh").get_active_material(0).albedo_texture.viewport_path = PortalAViewport
 	PortalB.get_node("Mesh").get_active_material(0).albedo_texture.viewport_path = PortalBViewport
+	
+	PortalA.get_node("SubViewport/Camera").position = Vector3.ZERO
+	PortalB.get_node("SubViewport/Camera").position = Vector3.ZERO
 
 func _physics_process(_delta):
 	var PortalAMesh = PortalA.get_node("Mesh")
@@ -19,20 +22,25 @@ func _physics_process(_delta):
 	var PortalACamera = PortalA.get_node("SubViewport/Camera")
 	var PortalBCamera = PortalB.get_node("SubViewport/Camera")
 	
-	#if !Engine.is_editor_hint():
-	PortalACamera.global_position = PortalBMesh.global_position - Vector3(0, .5, 0)
-	PortalBCamera.global_position = PortalAMesh.global_position - Vector3(0, .5, 0)
-	PortalACamera.rotation = PortalB.rotation + Vector3(0, deg_to_rad(180), 0)
-	PortalBCamera.rotation = PortalA.rotation + Vector3(0, deg_to_rad(180), 0)
-	if !Engine.is_editor_hint():
+	if Engine.is_editor_hint():
+		PortalACamera.global_position = PortalBMesh.global_position - Vector3(0, 0, 0)
+		PortalBCamera.global_position = PortalAMesh.global_position - Vector3(0, 0, 0)
+		PortalACamera.rotation = PortalB.rotation + Vector3(0, deg_to_rad(180), 0)
+		PortalBCamera.rotation = PortalA.rotation + Vector3(0, deg_to_rad(180), 0)
+	else:
+		#var linked: Node = links[portal]
+		#var trans: Transform3D = linked.global_transform.inverse() * get_camera_3d().global_transform
+		#var up := Vector3(0, 1, 0)
+		#trans = trans.rotated(up, PI)
+		#portal.get_node("CameraHolder").transform = trans
+		#var cam_pos: Transform3D = portal.get_node("CameraHolder").global_transform
+		#portal.get_node("SubViewport/Camera3D").global_transform = cam_pos
 		
-		#var PortalA_PointA = Player.position + PortalACamera.position
-		#var PortalA_AngleA = PortalACamera.position.angle_to(Player.position)
-		#var PortalA_AngleB = PortalA_AngleA + PI
-		#var PortalA_PointB = PortalACamera.position.rotated(PortalA_PointA, PortalA_AngleB)
-		#PortalACamera.rotation.y += PortalA_AngleB#deg_to_rad(PortalACamera.position.angle_to(PortalA_PointB))#deg_to_rad(PortalACamera.position.angle_to(Player.position))
-		#PortalBCamera.rotation.y += deg_to_rad(PortalBCamera.position.angle_to(Player.position))
-		
-		#PortalACamera.global_position = PortalB.get_node("Mesh").global_position + (Player.get_node("Mesh").global_position - PortalA.get_node("Mesh").global_position)
-		PortalACamera.global_rotation.y = Player.global_position.angle_to(PortalA.get_node("Mesh").global_position)
-		%ARrai.global_rotation = Player.global_position.direction_to(PortalA.global_position)
+		var PortalA_relativePosition = PortalB.get_node("Mesh").global_transform.inverse() * Player.get_node("Camera").global_transform
+		PortalA_relativePosition = PortalA_relativePosition.rotated(Vector3.UP, PI)
+		PortalA.get_node("CameraHolder").transform = PortalA_relativePosition
+		PortalACamera.global_transform = PortalA.get_node("CameraHolder").global_transform
+		var PortalB_relativePosition = PortalA.get_node("Mesh").global_transform.inverse() * Player.get_node("Camera").global_transform
+		PortalB_relativePosition = PortalB_relativePosition.rotated(Vector3.UP, PI)
+		PortalB.get_node("CameraHolder").transform = PortalB_relativePosition
+		PortalBCamera.global_transform = PortalB.get_node("CameraHolder").global_transform
