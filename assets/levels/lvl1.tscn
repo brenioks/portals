@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cj1m7pr8nc0tf"]
+[gd_scene load_steps=26 format=3 uid="uid://cj1m7pr8nc0tf"]
 
 [ext_resource type="Script" path="res://assets/scripts/portals.gd" id="1_0t7j2"]
 [ext_resource type="PackedScene" uid="uid://c5o5wl6urgmbp" path="res://assets/objects/player.tscn" id="1_qsemo"]
@@ -121,6 +121,9 @@ viewport_path = NodePath("SubViewport")
 [sub_resource type="ViewportTexture" id="ViewportTexture_ghrfi"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="PrismMesh" id="PrismMesh_qutub"]
+lightmap_size_hint = Vector2i(14, 21)
+
 [node name="World" type="Node3D"]
 
 [node name="ENVIRONMENT" type="Node" parent="."]
@@ -169,7 +172,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 2, 1.74846e-08)
 surface_material_override/0 = SubResource("StandardMaterial3D_iqsbq")
 
 [node name="Camera" parent="PORTALS/PortalA/SubViewport" index="0"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.98172, 2, 0.2)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.98172, 1.5, 0.2)
 
 [node name="PortalB" parent="PORTALS" instance=ExtResource("2_c53dn")]
 unique_name_in_owner = true
@@ -180,11 +183,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 2, -1.74846e-08)
 surface_material_override/0 = SubResource("StandardMaterial3D_pkfff")
 
 [node name="Camera" parent="PORTALS/PortalB/SubViewport" index="0"]
-transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -9.98078, 2, 0.2)
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -9.98078, 1.5, 0.2)
 
 [node name="Player" parent="." instance=ExtResource("1_qsemo")]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.29814, 1.00004, -3.41256)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.29814, 4.00543e-05, -3.41256)
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="Player"]
 transform = Transform3D(0.645218, 0, 0.763999, 0, 1, 0, -0.763999, 0, 0.645218, 0, 1, 0)
@@ -288,6 +291,11 @@ offset_right = 62.0
 offset_bottom = 23.0
 text = "P. B
 "
+
+[node name="ARrai" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1.91069e-15, 2.1785, 4.37114e-08, 4.37114e-08, -9.52251e-08, 1, 1, 0, -4.37114e-08, 0, 1, 0)
+mesh = SubResource("PrismMesh_qutub")
 
 [connection signal="pressed" from="GUI/DebugScreen/CenterContainer/Container/VBoxContainer/ResumeButton" to="GUI" method="_on_resume_button_pressed"]
 [connection signal="pressed" from="GUI/DebugScreen/CenterContainer/Container/VBoxContainer/QuitButton" to="GUI" method="_on_quit_button_pressed"]

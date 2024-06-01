@@ -20,15 +20,19 @@ func _physics_process(_delta):
 	var PortalBCamera = PortalB.get_node("SubViewport/Camera")
 	
 	#if !Engine.is_editor_hint():
-	PortalACamera.global_position = PortalBMesh.global_position
-	PortalBCamera.global_position = PortalAMesh.global_position
+	PortalACamera.global_position = PortalBMesh.global_position - Vector3(0, .5, 0)
+	PortalBCamera.global_position = PortalAMesh.global_position - Vector3(0, .5, 0)
 	PortalACamera.rotation = PortalB.rotation + Vector3(0, deg_to_rad(180), 0)
 	PortalBCamera.rotation = PortalA.rotation + Vector3(0, deg_to_rad(180), 0)
 	if !Engine.is_editor_hint():
 		
-		var PortalA_PointA = Player.position + PortalACamera.position
-		var PortalA_AngleA = PortalACamera.position.angle_to(Player.position)
-		var PortalA_AngleB = PortalA_AngleA + PI
-		var PortalA_PointB = PortalACamera.position.rotated(PortalA_PointA, PortalA_AngleB)
-		PortalACamera.rotation.y += PortalA_AngleB#deg_to_rad(PortalACamera.position.angle_to(PortalA_PointB))#deg_to_rad(PortalACamera.position.angle_to(Player.position))
+		#var PortalA_PointA = Player.position + PortalACamera.position
+		#var PortalA_AngleA = PortalACamera.position.angle_to(Player.position)
+		#var PortalA_AngleB = PortalA_AngleA + PI
+		#var PortalA_PointB = PortalACamera.position.rotated(PortalA_PointA, PortalA_AngleB)
+		#PortalACamera.rotation.y += PortalA_AngleB#deg_to_rad(PortalACamera.position.angle_to(PortalA_PointB))#deg_to_rad(PortalACamera.position.angle_to(Player.position))
 		#PortalBCamera.rotation.y += deg_to_rad(PortalBCamera.position.angle_to(Player.position))
+		
+		#PortalACamera.global_position = PortalB.get_node("Mesh").global_position + (Player.get_node("Mesh").global_position - PortalA.get_node("Mesh").global_position)
+		PortalACamera.global_rotation.y = Player.global_position.angle_to(PortalA.get_node("Mesh").global_position)
+		%ARrai.global_rotation = Player.global_position.direction_to(PortalA.global_position)
