@@ -22,5 +22,13 @@ func _physics_process(_delta):
 	#if !Engine.is_editor_hint():
 	PortalACamera.global_position = PortalBMesh.global_position
 	PortalBCamera.global_position = PortalAMesh.global_position
-	PortalACamera.rotation = PortalB.rotation + Vector3(0, deg_to_rad(180), 0)#deg_to_rad(PortalACamera.position.angle_to(Player.position))
-	PortalBCamera.rotation = PortalA.rotation + Vector3(0, deg_to_rad(180), 0)#deg_to_rad(PortalACamera.position.angle_to(Player.position))
+	PortalACamera.rotation = PortalB.rotation + Vector3(0, deg_to_rad(180), 0)
+	PortalBCamera.rotation = PortalA.rotation + Vector3(0, deg_to_rad(180), 0)
+	if !Engine.is_editor_hint():
+		
+		var PortalA_PointA = Player.position + PortalACamera.position
+		var PortalA_AngleA = PortalACamera.position.angle_to(Player.position)
+		var PortalA_AngleB = PortalA_AngleA + PI
+		var PortalA_PointB = PortalACamera.position.rotated(PortalA_PointA, PortalA_AngleB)
+		PortalACamera.rotation.y += PortalA_AngleB#deg_to_rad(PortalACamera.position.angle_to(PortalA_PointB))#deg_to_rad(PortalACamera.position.angle_to(Player.position))
+		#PortalBCamera.rotation.y += deg_to_rad(PortalBCamera.position.angle_to(Player.position))

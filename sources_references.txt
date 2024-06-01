@@ -1,0 +1,2 @@
+portal camera calculation - 
+	https://www.reddit.com/r/gamedev/comments/31d1q2/does_anybody_know_how_portal_did_its_portals/

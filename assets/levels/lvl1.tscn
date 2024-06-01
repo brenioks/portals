@@ -35,7 +35,7 @@ volumetric_fog_density = 0.01
 adjustment_enabled = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_f2nbl"]
-viewport_path = NodePath("/root/@EditorNode@17122/@Panel@13/@VBoxContainer@14/@HSplitContainer@17/@HSplitContainer@25/@HSplitContainer@33/@VBoxContainer@34/@VSplitContainer@36/@VSplitContainer@61/@VBoxContainer@62/@PanelContainer@109/MainScreen/@CanvasItemEditor@9461/@VSplitContainer@9280/@HSplitContainer@9282/@HSplitContainer@9284/@Control@9285/@SubViewportContainer@9286/@SubViewport@9287/World/PORTALS/PortalA/SubViewport")
+viewport_path = NodePath("SubViewport")
 
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_30bv6"]
 frames = 4
@@ -76,7 +76,7 @@ disable_receive_shadows = true
 point_size = 13.9
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_5uml2"]
-viewport_path = NodePath("/root/@EditorNode@17122/@Panel@13/@VBoxContainer@14/@HSplitContainer@17/@HSplitContainer@25/@HSplitContainer@33/@VBoxContainer@34/@VSplitContainer@36/@VSplitContainer@61/@VBoxContainer@62/@PanelContainer@109/MainScreen/@CanvasItemEditor@9461/@VSplitContainer@9280/@HSplitContainer@9282/@HSplitContainer@9284/@Control@9285/@SubViewportContainer@9286/@SubViewport@9287/World/PORTALS/PortalB/SubViewport")
+viewport_path = NodePath("SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6gyxo"]
 render_priority = 2
