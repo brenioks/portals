@@ -98,6 +98,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, -9.99)
 
 [node name="Player" parent="." instance=ExtResource("1_qsemo")]
 unique_name_in_owner = true
+process_mode = 3
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.29814, 4.00543e-05, -3.41256)
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="Player"]
@@ -107,6 +108,7 @@ shadow_enabled = true
 omni_range = 2.0
 
 [node name="GUI" type="CanvasLayer" parent="."]
+process_mode = 3
 script = ExtResource("8_6qncl")
 
 [node name="DebugScreen" type="Control" parent="GUI"]

@@ -21,6 +21,7 @@ func _input(event):
 		camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -95, 95)
 	
 	if event.is_action_pressed("escape"):
+		get_tree().paused = bool(Input.get_mouse_mode() / 2)
 		Input.set_mouse_mode(int(!Input.get_mouse_mode()) * 2)
 
 func _physics_process(delta):

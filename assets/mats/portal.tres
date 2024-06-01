@@ -1,0 +1,32 @@
+[gd_resource type="StandardMaterial3D" load_steps=8 format=3 uid="uid://dwafmuhv8wnu5"]
+
+[ext_resource type="Texture2D" uid="uid://bsbtp8f83oxql" path="res://assets/textures/portal.png" id="1_h52l3"]
+[ext_resource type="Texture2D" uid="uid://csn04y8wn8xpo" path="res://assets/textures/portalempty1.png" id="2_1r1wn"]
+[ext_resource type="Texture2D" uid="uid://dlgtkvul2t0s8" path="res://assets/textures/portalempty2.png" id="3_alqfe"]
+[ext_resource type="Texture2D" uid="uid://obbly488n13a" path="res://assets/textures/portalempty3.png" id="4_3o7ir"]
+[ext_resource type="Texture2D" uid="uid://401gb8e1s1sx" path="res://assets/textures/portalempty4.png" id="5_2tduw"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_30bv6"]
+frames = 4
+speed_scale = 2.0
+frame_0/texture = ExtResource("2_1r1wn")
+frame_0/duration = 0.4
+frame_1/texture = ExtResource("3_alqfe")
+frame_1/duration = 0.4
+frame_2/texture = ExtResource("4_3o7ir")
+frame_2/duration = 0.4
+frame_3/texture = ExtResource("5_2tduw")
+frame_3/duration = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8260e"]
+albedo_texture = SubResource("AnimatedTexture_30bv6")
+
+[resource]
+render_priority = 2
+next_pass = SubResource("StandardMaterial3D_8260e")
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("1_h52l3")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
