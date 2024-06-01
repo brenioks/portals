@@ -28,19 +28,23 @@ func _physics_process(_delta):
 		PortalACamera.rotation = PortalB.rotation + Vector3(0, deg_to_rad(180), 0)
 		PortalBCamera.rotation = PortalA.rotation + Vector3(0, deg_to_rad(180), 0)
 	else:
-		#var linked: Node = links[portal]
-		#var trans: Transform3D = linked.global_transform.inverse() * get_camera_3d().global_transform
-		#var up := Vector3(0, 1, 0)
-		#trans = trans.rotated(up, PI)
-		#portal.get_node("CameraHolder").transform = trans
-		#var cam_pos: Transform3D = portal.get_node("CameraHolder").global_transform
-		#portal.get_node("SubViewport/Camera3D").global_transform = cam_pos
+		## Convert from global space to local space at the entrance (this) portal
+		#var local:Transform3D = global_transform.affine_inverse() * real
+		## Compensate for any scale the entrance portal may have
+		#var unscaled:Transform3D = local.scaled(global_transform.basis.get_scale())
+		## Flip it (the portal always flips the view 180 degrees)
+		#var flipped:Transform3D = unscaled.rotated(Vector3.UP, PI)
+		## Apply any scale the exit portal may have (and apply custom exit scale)
+		#var exit_scale_vector:Vector3 = exit_portal.global_transform.basis.get_scale()
+		#var scaled_at_exit:Transform3D = flipped.scaled(Vector3.ONE / exit_scale_vector * exit_scale)
+		## Convert from local space at the exit portal to global space
+		#var local_at_exit:Transform3D = exit_portal.global_transform * scaled_at_exit
+		#return local_at_exit
 		
-		var PortalA_relativePosition = PortalB.get_node("Mesh").global_transform.inverse() * Player.get_node("Camera").global_transform
-		PortalA_relativePosition = PortalA_relativePosition.rotated(Vector3.UP, PI)
-		PortalA.get_node("CameraHolder").transform = PortalA_relativePosition
-		PortalACamera.global_transform = PortalA.get_node("CameraHolder").global_transform
-		var PortalB_relativePosition = PortalA.get_node("Mesh").global_transform.inverse() * Player.get_node("Camera").global_transform
-		PortalB_relativePosition = PortalB_relativePosition.rotated(Vector3.UP, PI)
-		PortalB.get_node("CameraHolder").transform = PortalB_relativePosition
-		PortalBCamera.global_transform = PortalB.get_node("CameraHolder").global_transform
+		var relative = PortalA.get_node("Mesh").global_transform.affine_inverse() * Player.get_node("Camera").global_transform
+		var unscaled = relative.scaled(PortalA.get_node("Mesh").global_transform.basis.get_scale())
+		var flipped = unscaled.rotated(Vector3.UP, PI)
+		var exitScaleVector = PortalB.global_transform.basis.get_scale()
+		var scaledAtExit	= flipped.scaled(Vector3.ONE / exitScaleVector * 1)
+		var localAtExit:Transform3D = PortalB.get_node("Mesh").global_transform * scaledAtExit
+		PortalACamera.global_transform = localAtExit
