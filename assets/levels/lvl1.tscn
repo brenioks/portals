@@ -25,9 +25,7 @@ sdfgi_enabled = true
 sdfgi_use_occlusion = true
 sdfgi_read_sky_light = false
 glow_enabled = true
-volumetric_fog_enabled = true
 volumetric_fog_density = 0.01
-adjustment_enabled = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_seqlk"]
 content_margin_left = 5.0
@@ -90,16 +88,15 @@ script = ExtResource("1_0t7j2")
 
 [node name="PortalA" parent="PORTALS" instance=ExtResource("2_c53dn")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, -9.99)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 2, -7.99)
 
 [node name="PortalB" parent="PORTALS" instance=ExtResource("2_c53dn")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, -9.99)
+transform = Transform3D(-1, 0, -2.51336e-07, 0, 1, 0, 2.51336e-07, 0, -1, 0, 2, -7.99)
 
 [node name="Player" parent="." instance=ExtResource("1_qsemo")]
 unique_name_in_owner = true
-process_mode = 3
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.29814, 4.00543e-05, -3.41256)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.29814, 3.00004, -3.41256)
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="Player"]
 transform = Transform3D(0.645218, 0, 0.763999, 0, 1, 0, -0.763999, 0, 0.645218, 0, 1, 0)
@@ -209,5 +206,3 @@ text = "P. B
 [connection signal="pressed" from="GUI/DebugScreen/CenterContainer/Container/VBoxContainer/QuitButton" to="GUI" method="_on_quit_button_pressed"]
 [connection signal="toggled" from="GUI/DebugScreen/CenterContainer/Container/VBoxContainer/PAOnScreenCheck" to="GUI" method="_on_pa_on_screen_check_toggled"]
 [connection signal="toggled" from="GUI/DebugScreen/CenterContainer/Container/VBoxContainer/PBOnScreenCheck" to="GUI" method="_on_pb_on_screen_check_toggled"]
-
-[editable path="Player"]

@@ -25,7 +25,8 @@ func _ready():
 func _input(event):
 	if event.is_action_pressed("escape"):
 		DebugScreen.visible = Input.get_mouse_mode() * .5
-
+		get_tree().paused = Input.get_mouse_mode() * .5
+		Input.set_mouse_mode(int(!Input.get_mouse_mode()) * 2)
 
 func _on_resume_button_pressed():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

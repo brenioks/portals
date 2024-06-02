@@ -1,14 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://27gow0tlrm2d"]
+[gd_scene load_steps=5 format=3 uid="uid://27gow0tlrm2d"]
 
 [ext_resource type="Shader" path="res://assets/shaders/portal.gdshader" id="2_ivecv"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_ksthq"]
+flip_faces = true
 size = Vector2(2, 4)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_aspyj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yaqhn"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_ivecv")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0y8jd"]
+size = Vector3(2, 4, 0.1)
 
 [node name="Portal" type="Node3D"]
 
@@ -16,7 +20,7 @@ shader = ExtResource("2_ivecv")
 cast_shadow = 0
 gi_mode = 0
 mesh = SubResource("QuadMesh_ksthq")
-surface_material_override/0 = SubResource("ShaderMaterial_aspyj")
+surface_material_override/0 = SubResource("ShaderMaterial_yaqhn")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 handle_input_locally = false
@@ -31,3 +35,8 @@ render_target_update_mode = 4
 fov = 70.0
 
 [node name="CameraHolder" type="Marker3D" parent="."]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_0y8jd")

@@ -13,6 +13,9 @@ func _ready():
 	PortalA.get_node("Mesh").get_active_material(0).set_shader_parameter("albedo", PortalAViewport.get_texture())
 	PortalB.get_node("Mesh").get_active_material(0).set_shader_parameter("albedo", PortalBViewport.get_texture())
 	
+	PortalA.get_node("Area3D").body_entered.connect(_portal_body_entered.bind(PortalA))
+	PortalB.get_node("Area3D").body_entered.connect(_portal_body_entered.bind(PortalB))
+	
 	#PortalA.get_node("SubViewport/Camera").position = Vector3.ZERO
 	#PortalB.get_node("SubViewport/Camera").position = Vector3.ZERO
 
@@ -35,14 +38,26 @@ func _physics_process(_delta):
 		PortalACamera.rotation = PortalB.rotation + Vector3(0, deg_to_rad(180), 0)
 		PortalBCamera.rotation = PortalA.rotation + Vector3(0, deg_to_rad(180), 0)
 	else:
-		var MainCamera = get_viewport().get_camera_3d()
+		var MainCamera = Player.get_node("Camera")
 		
-		var PortalA_relativePosition = PortalB.get_node("Mesh").global_transform.inverse() * MainCamera.global_transform
+		var PortalA_relativePosition = PortalB.global_transform.inverse() * MainCamera.global_transform
 		PortalA_relativePosition = PortalA_relativePosition.rotated(Vector3.UP, PI)
 		PortalA.get_node("CameraHolder").transform = PortalA_relativePosition
 		PortalACamera.global_transform = PortalA.get_node("CameraHolder").global_transform
 		
-		var PortalB_relativePosition = PortalA.get_node("Mesh").global_transform.inverse() * MainCamera.global_transform
+		var PortalB_relativePosition = PortalA.global_transform.inverse() * MainCamera.global_transform
 		PortalB_relativePosition = PortalB_relativePosition.rotated(Vector3.UP, PI)
 		PortalB.get_node("CameraHolder").transform = PortalB_relativePosition
 		PortalBCamera.global_transform = PortalB.get_node("CameraHolder").global_transform
+	
+
+func _portal_body_entered(body, portal):
+	if !(body is PhysicsBody3D): return
+	var MainCamera = Player.get_node("Camera")
+	if portal == PortalA:
+		#var PortalA_relativePosition = Player.global_transform * PortalB.global_transform.affine_inverse()
+		body.position += PortalB.position - body.position
+		body.rotation += PortalB.rotation.rotated(Vector3.UP, PI)
+	if portal == PortalB:
+		body.position += PortalA.position - body.position
+		#body.rotation += PortalA.rotation.rotated(Vector3.UP, PI)
